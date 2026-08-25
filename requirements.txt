@@ -1,4 +1,4 @@
 flask
 tensorflow
 numpy
-gunicornAdd-Content requirements.txt "gunicorn"gunicorn
+gunicorn
