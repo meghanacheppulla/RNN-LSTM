@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sentiment Analysis — RNN vs LSTM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            color: #1a1a2e;
+            background: linear-gradient(135deg, #232946, #121629);
+        }
+        textarea {
+            background: #ffffff;
+        }
+        h1 {
+            font-size: 22px;
+            color: #1a1a2e;
+        }
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            background: linear-gradient(-45deg, #232946, #16697a, #0d1b2a, #1b998b);
+            background-size: 400% 400%;
+            animation: heroShift 8s ease infinite, heroFadeIn 1s ease-out;
+        }
+        .hero h1 {
+            color: #ffffff;
+            font-size: 30px;
+            margin: 0;
+            animation: heroFadeIn 1.2s ease-out;
+        }
+        .hero p {
+            color: #ffffff;
+            margin: 8px 0 0;
+            font-size: 15px;
+            opacity: 0.9;
+        }
+        @keyframes heroShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes heroFadeIn {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        label {
+            color: #ffffff;
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            font-size: 15px;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 2px solid #16697a;
+            border-radius: 4px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 8px 20px;
+            font-size: 15px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #16697a, #1b998b);
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #1b998b, #0d1b2a);
+        }
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #16697a;
+            padding: 8px 12px;
+            text-align: left;
+            background: #ffffff;
+        }
+        th {
+            background: linear-gradient(-45deg, #232946, #16697a, #0d1b2a, #1b998b);
+            background-size: 400% 400%;
+            animation: heroShift 8s ease infinite;
+            color: #ffffff;
+        }
+        .positive { color: #1b998b; font-weight: bold; }
+        .negative { color: #e63946; font-weight: bold; }
+        .accuracy-box {
+            margin-top: 30px;
+            padding: 12px;
+            border-radius: 6px;
+            color: #ffffff;
+            text-align: center;
+            background: linear-gradient(-45deg, #232946, #16697a, #0d1b2a, #1b998b);
+            background-size: 400% 400%;
+            animation: heroShift 8s ease infinite, heroFadeIn 1s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Sentiment Analysis: RNN vs LSTM</h1>
+
+    </div>
+
+    <form method="POST">
+        <label for="review">Enter a review:</label><br>
+        <textarea name="review" id="review" placeholder="Type a review here...">{{ review_text }}</textarea><br>
+        <button type="submit"> Analyze </button>
+    </form>
+
+    {% if result %}
+    <div class="hero">
+        <h1>Model Prediction</h1>
+    </div>
+    <table>
+        <tr>
+            <th>Model</th>
+            <th>Prediction</th>
+            <th>Confidence Score</th>
+        </tr>
+         <td>RNN</td>
+            <td class="{{ 'positive' if result.rnn_label == 'Positive' else 'negative' }}">{{ result.rnn_label }}</td>
+            <td>{{ result.rnn_score }}</td>
+        <tr>
+             <tr>
+            <td>LSTM</td>
+            <td class="{{ 'positive' if result.lstm_label == 'Positive' else 'negative' }}">{{ result.lstm_label }}</td>
+            <td>{{ result.lstm_score }}</td>
+        </tr>
+    </table>
+    {% endif %}
+
+    <div class="accuracy-box">
+        <strong>Model Accuracy Comparison </strong><br>
+        RNN Accuracy: {{ rnn_accuracy }}%<br>
+        LSTM Accuracy: {{ lstm_accuracy }}%
+    </div>
+</body>
+</html>
