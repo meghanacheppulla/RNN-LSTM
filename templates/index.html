@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sentiment Analysis — RNN vs LSTM</title>
+    <title>Sentiment Analysis</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -92,7 +92,7 @@
             color: #ffffff;
         }
         .positive { color: #1b998b; font-weight: bold; }
-        .negative { color: #e63946; font-weight: bold; }
+        .negative { color: #e63939; font-weight: bold; }
         .accuracy-box {
             margin-top: 30px;
             padding: 12px;
@@ -103,12 +103,25 @@
             background-size: 400% 400%;
             animation: heroShift 8s ease infinite, heroFadeIn 1s ease-out;
         }
+        .logout-link {
+            text-align: right;
+            margin-top: 10px;
+        }
+        .logout-link a {
+            color: #b91607;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .logout-link a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <div class="hero">
-        <h1>Sentiment Analysis: RNN vs LSTM</h1>
+    <p class="logout-link"><a href="{{ url_for('logout') }}">Logout</a></p>
 
+    <div class="hero">
+        <h1>Sentiment Analysis</h1>
     </div>
 
     <form method="POST">
@@ -127,11 +140,12 @@
             <th>Prediction</th>
             <th>Confidence Score</th>
         </tr>
-         <td>RNN</td>
+        <tr>
+            <td>RNN</td>
             <td class="{{ 'positive' if result.rnn_label == 'Positive' else 'negative' }}">{{ result.rnn_label }}</td>
             <td>{{ result.rnn_score }}</td>
+        </tr>
         <tr>
-             <tr>
             <td>LSTM</td>
             <td class="{{ 'positive' if result.lstm_label == 'Positive' else 'negative' }}">{{ result.lstm_label }}</td>
             <td>{{ result.lstm_score }}</td>

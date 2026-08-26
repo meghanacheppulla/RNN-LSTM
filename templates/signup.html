@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up — Sentiment Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 80px auto;
+            padding: 20px;
+            color: #1a1a2e;
+            background: linear-gradient(135deg, #232946, #121629);
+        }
+        .hero {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            background: linear-gradient(-45deg, #232946, #16697a, #0d1b2a, #1b998b);
+            background-size: 400% 400%;
+            animation: heroShift 8s ease infinite;
+        }
+        .hero h1 {
+            color: #ffffff;
+            font-size: 26px;
+            margin: 0;
+        }
+        @keyframes heroShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        label { color: #ffffff; display: block; margin-top: 12px; }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+            border: 2px solid #16697a;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 18px;
+            width: 100%;
+            padding: 10px;
+            font-size: 15px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #16697a, #1b998b);
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #1b998b, #0d1b2a);
+        }
+        .flash {
+            color: #ffffff;
+            background: #4c99b5;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 12px;
+            text-align: center;
+        }
+        .switch-link {
+            color: #ffffff;
+            text-align: center;
+            margin-top: 15px;
+            display: block;
+        }
+        .switch-link a { color: #1b998b; }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Create Account</h1>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="flash">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" required>
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <span class="switch-link">Already have an account? <a href="{{ url_for('login') }}">Log in</a></span>
+</body>
+</html>
